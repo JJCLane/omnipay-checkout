@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 namespace Omnipay\Checkout;
 
-
+use Omnipay\Checkout\Message\Purchase\PurchaseRequest;
 use Omnipay\Common\AbstractGateway;
 
 class CheckoutGateway extends AbstractGateway
@@ -29,7 +29,7 @@ class CheckoutGateway extends AbstractGateway
     public function getSecretKey()
     {
         return $this->getParameter('secret_key');
-    }    
+    }
 
     public function setSecretKey(string $value)
     {
@@ -42,7 +42,12 @@ class CheckoutGateway extends AbstractGateway
     }
 
     public function setPublicKey(string $value)
-    {   
+    {
         return $this->setParameter('public_key', $value);
+    }
+
+    public function purchase(array $parameters = [])
+    {
+        return $this->createRequest(PurchaseRequest::class, $parameters);
     }
 }
