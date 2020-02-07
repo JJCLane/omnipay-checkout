@@ -1,0 +1,42 @@
+{
+    "name": "beganovich/omnipay-checkout",
+    "description": "Checkout driver for the Omnipay PHP payment processing library",
+    "keywords": [
+        "beganovich",
+        "omnipay-checkout"
+    ],
+    "homepage": "https://github.com/beganovich/omnipay-checkout",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Benjamin Beganović",
+            "email": "ben@invoiceninja.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\Checkout\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Omnipay\\Checkout\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
