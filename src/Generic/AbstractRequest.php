@@ -2,9 +2,7 @@
 
 namespace Omnipay\Checkout\Generic;
 
-use Omnipay\Common\Message\AbstractRequest as OriginalAbstractRequest;
-
-class AbstractRequest extends OriginalAbstractRequest
+abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     const LIVE_ENDPOINT = 'https://api.checkout.com';
     const SANDBOX_ENDPOINT = 'https://api.sandbox.checkout.com';
@@ -27,5 +25,39 @@ class AbstractRequest extends OriginalAbstractRequest
     public function setPublicKey(string $value)
     {
         return $this->setParameter('public_key', $value);
+    }
+
+    /** Breakpoint for the methods used to capture the request. */
+
+    public function getMetaData()
+    {
+        return $this->getParameter('meta_data');
+    }
+
+    public function setMetaData($value)
+    {
+        return $this->setParameter('meta_data', $value);
+    }
+
+    public function getEndpoint()
+    {
+        if ($this->getTestMode()) {
+            return self::LIVE_ENDPOINT;
+        }
+
+        return self::SANDBOX_ENDPOINT;
+    }
+
+    public function sendRequest($data)
+    {
+        $response = $this->httpClient->request($this->getHttpMethod(), $this->getEndpoint(), [
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json;charset=UTF-8',
+            'Authorization' => $this->getSecretKey()
+        ], empty($data) ? json_encode($data) : null);
+
+        $result = json_decode($response->getBody()->getContents(), true);
+
+        return $result;
     }
 }
