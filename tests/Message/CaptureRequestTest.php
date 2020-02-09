@@ -2,22 +2,22 @@
 
 namespace Omnipay\Checkout\Tests\Message;
 
-use Omnipay\Checkout\Message\Purchase\PurchaseRequest;
+use Omnipay\Checkout\Message\Capture\CaptureRequest;
 use Omnipay\Tests\TestCase;
 
-class PurchaseRequestTest extends TestCase
+class CaptureRequestTest extends TestCase
 {
     public $request;
 
     public $data = [
         'amount' => '200.00',
         'currency' => 'bam',
-        'description' => 'Example purchase',
+        'description' => 'Example capture',
     ];
 
     public function setUp()
     {
-        $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $this->request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize($this->data);
     }
 
@@ -28,19 +28,19 @@ class PurchaseRequestTest extends TestCase
 
         $this->assertEquals(20000, $content->amount);
         $this->assertEquals('BAM', $content->currency);
-        $this->assertEquals('Example purchase', $content->description);
+        $this->assertEquals('Example capture', $content->description);
     }
 
     /** @test */
     public function test_request_can_be_send_succesfully()
     {
-        $this->setMockHttpResponse('PurchaseSuccess.txt');
+        $this->setMockHttpResponse('CaptureSuccess.txt');
 
         $response = $this->request->send();
 
         $this->assertTrue($response->isSuccessful());
         $this->assertTrue($response->isRedirect());
-        $this->assertEquals('pay_mbabizu24mvu3mela5njyhpit4', $response->getTransactionReference());
+        $this->assertEquals('act_y3oqhf46pyzuxjbcn2giaqnb44', $response->getTransactionReference());
     }
 
     /** @test */

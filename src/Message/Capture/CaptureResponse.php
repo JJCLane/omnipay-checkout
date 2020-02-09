@@ -1,14 +1,12 @@
 <?php
 
-namespace Omnipay\Checkout\Message\Purchase;
+namespace Omnipay\Checkout\Message\Capture;
 
 use Omnipay\Checkout\Generic\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
-class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
+class CaptureResponse extends AbstractResponse implements RedirectResponseInterface
 {
-    protected $redirectEndpoint = null;
-
     public function isSuccessful()
     {
         if(isset($this->data['error_type'])) {
