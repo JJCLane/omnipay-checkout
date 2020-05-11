@@ -6,7 +6,7 @@ use Omnipay\Checkout\Message\Purchase\PurchaseRequest;
 use Omnipay\Checkout\Message\Refund\RefundRequest;
 use Omnipay\Common\AbstractGateway;
 
-class CheckoutGateway extends AbstractGateway
+class Gateway extends AbstractGateway
 {
     /**
      * Return the name of the gateway for the container.

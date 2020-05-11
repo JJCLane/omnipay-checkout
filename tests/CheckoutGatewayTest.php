@@ -2,7 +2,7 @@
 
 namespace Omnipay\Checkout\Tests;
 
-use Omnipay\Checkout\CheckoutGateway;
+use Omnipay\Checkout\Gateway;
 use Omnipay\Checkout\Message\Purchase\PurchaseRequest;
 use Omnipay\Tests\GatewayTestCase;
 
@@ -14,7 +14,7 @@ class CheckoutGatewayTest extends GatewayTestCase
     {
         parent::setUp();
 
-        $this->gateway = new CheckoutGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
     }
 
     /** @test */
