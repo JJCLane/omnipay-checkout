@@ -41,7 +41,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function getEndpoint()
     {
-        if ($this->getTestMode()) {
+        if (!$this->getTestMode()) {
             return self::LIVE_ENDPOINT;
         }
 
@@ -54,10 +54,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             'Accept' => 'application/json',
             'Content-Type' => 'application/json;charset=UTF-8',
             'Authorization' => $this->getSecretKey()
-        ], empty($data) ? json_encode($data) : null);
+        ], empty($data) ? null : json_encode($data));
 
         $result = json_decode($response->getBody()->getContents(), true);
-
         return $result;
     }
 }
