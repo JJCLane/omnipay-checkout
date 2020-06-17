@@ -11,20 +11,21 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function isSuccessful()
     {
-        if(isset($this->data['error_type'])) {
-            return false;
-        }
+        return isset($this->data['approved']) && $this->data['approved'] === true;
+    }
 
-        return true;
+    public function isPending()
+    {
+        return isset($this->data['status']) && $this->data['status'] === 'Pending';
     }
 
     public function isRedirect()
     {
-        if(isset($this->data['error_type'])) {
-            return false;
+        if ($this->getCode() === 202 && isset($this->data['_links']['redirect'])) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public function getRedirectMethod()
@@ -35,7 +36,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     public function getRedirectUrl()
     {
         if ($this->isRedirect()) {
-            return 'placeholder';
+            return $this->data['_links']['redirect']['href'];
         }
     }
 
@@ -43,4 +44,6 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     {
         return $this->getData();
     }
+
+
 }
