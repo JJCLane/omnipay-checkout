@@ -57,6 +57,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         ], empty($data) ? null : json_encode($data));
 
         $result = json_decode($response->getBody()->getContents(), true);
+        $result['statusCode'] = $response->getStatusCode();
         return $result;
     }
 }

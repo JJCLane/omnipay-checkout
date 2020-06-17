@@ -19,6 +19,11 @@ class AbstractResponse extends OriginalAbstractResponse
         return null;
     }
 
+    public function getCode()
+    {
+        return $this->data['statusCode'];
+    }
+
     public function getMessage()
     {
         if(isset($this->data['error_codes'])) {
