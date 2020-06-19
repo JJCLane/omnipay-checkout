@@ -2,9 +2,10 @@
 
 namespace Omnipay\Checkout;
 
-use Omnipay\Checkout\Message\Purchase\PurchaseRequest;
-use Omnipay\Checkout\Message\Refund\RefundRequest;
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Checkout\Message\Refund\RefundRequest;
+use Omnipay\Checkout\Message\Purchase\PurchaseRequest;
+use Omnipay\Checkout\Message\CompletePurchase\CompletePurchaseRequest;
 
 class Gateway extends AbstractGateway
 {
@@ -50,6 +51,11 @@ class Gateway extends AbstractGateway
     public function purchase(array $parameters = [])
     {
         return $this->createRequest(PurchaseRequest::class, $parameters);
+    }
+
+    public function completePurchase(array $parameters = [])
+    {
+        return $this->createRequest(CompletePurchaseRequest::class, $parameters);
     }
 
     public function refund(array $parameters = [])
