@@ -40,6 +40,20 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         }
     }
 
+        /**
+     * Get the risk array from the response of purchaseRequest.
+     *
+     * @return array|null
+     */
+    public function getRisk()
+    {
+        if (isset($this->data['risk'])) {
+            return $this->data['risk'];
+        }
+
+        return null;
+    }
+
     public function getRedirectedData()
     {
         return $this->getData();
