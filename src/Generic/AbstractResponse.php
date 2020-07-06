@@ -47,7 +47,7 @@ class AbstractResponse extends OriginalAbstractResponse implements ResponseInter
         if (isset($this->data['reference'])) {
             return $this->data['reference'];
         }
-        
+
         return null;
     }
 
@@ -117,7 +117,7 @@ class AbstractResponse extends OriginalAbstractResponse implements ResponseInter
     public function getMessage()
     {
         if(isset($this->data['error_codes'])) {
-            return $this->data['error_codes'];
+            return $this->data['error_codes'][0];
         }
 
         if (isset($this->data['status'])) {
@@ -163,9 +163,9 @@ class AbstractResponse extends OriginalAbstractResponse implements ResponseInter
     {
         $currencyCode = $this->getCurrency() ?: 'USD';
         $currency = new Currency($currencyCode);
-        
+
         $amount = $amount !== null ? $amount : $this->data['amount'];
-        
+
         if ($amount === null) {
             return null;
         } elseif ($amount instanceof Money) {
