@@ -7,6 +7,10 @@ use Omnipay\Checkout\Generic\AbstractRequest;
 
 class PurchaseRequest extends AbstractRequest
 {
+    public const PAYMENT_REGULAR = 'Regular';
+    public const PAYMENT_RECURRING = 'Recurring';
+    public const PAYMENT_MOTO = 'MOTO';
+
     /**
      * Return the data that is used as request body/content.
      *
@@ -23,15 +27,30 @@ class PurchaseRequest extends AbstractRequest
             'metadata' => $this->getMetaData(),
             'reference' => $this->getTransactionId(),
             'payment_ip' => $this->getClientIp(),
+            'source' => $this->getSourceData(),
             '3ds' => $this->get3DS(),
+            'merchant_initiated' => $this->getMerchantInitiated(),
         ];
 
-        $data['source'] = $this->getSourceData();
-
+        if ($this->getPreviousPaymentId()) {
+            $data['previous_payment_id'] = $this->getPreviousPaymentId();
+        }
+        if ($this->getPaymentType()) {
+            $data['payment_type'] = $this->getPaymentType();
+        }
+        $customer = [];
         if ($this->getCustomerReference()) {
-            $data['customer'] = ['id' => $this->getCustomerReference()];
-        } elseif ($this->getBillingEmail()) {
-            $data['customer'] = ['email' => $this->getBillingEmail()];
+            $customer['id'] = $this->getCustomerReference();
+        }
+        if ($this->getBillingEmail()) {
+            $customer['email'] = $this->getBillingEmail();
+        }
+        if ($this->getCustomerName()) {
+            $customer['name'] = $this->getCustomerName();
+        }
+
+        if ($customer !== []) {
+            $data['customer'] = $customer;
         }
 
         return $data;
@@ -45,6 +64,16 @@ class PurchaseRequest extends AbstractRequest
     public function setSource(array $value): self
     {
         return $this->setParameter('source', $value);
+    }
+
+    public function getCustomerName(): ?string
+    {
+        return $this->getParameter('customerName');
+    }
+
+    public function setCustomerName(string $value): self
+    {
+        return $this->setParameter('customerName', $value);
     }
 
     public function getBillingEmail(): ?string
@@ -75,6 +104,36 @@ class PurchaseRequest extends AbstractRequest
     public function set3DS(array $value): self
     {
         return $this->setParameter('3DS', $value);
+    }
+
+    public function getPreviousPaymentId(): ?string
+    {
+        return $this->getParameter('previousPaymentId');
+    }
+
+    public function setPreviousPaymentId(string $value): self
+    {
+        return $this->setParameter('previousPaymentId', $value);
+    }
+
+    public function getMerchantInitiated(): bool
+    {
+        return $this->parameters->get('merchantInitiated', false);
+    }
+
+    public function setMerchantInitiated(bool $value): self
+    {
+        return $this->setParameter('merchantInitiated', $value);
+    }
+
+    public function getPaymentType(): ?string
+    {
+        return $this->getParameter('paymentType');
+    }
+
+    public function setPaymentType(string $value): self
+    {
+        return $this->setParameter('paymentType', $value);
     }
 
     public function getHttpMethod(): string
