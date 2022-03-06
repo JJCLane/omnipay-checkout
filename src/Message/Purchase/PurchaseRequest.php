@@ -38,6 +38,12 @@ class PurchaseRequest extends AbstractRequest
         if ($this->getPaymentType()) {
             $data['payment_type'] = $this->getPaymentType();
         }
+        if ($this->getReturnUrl()) {
+            $data['success_url'] = $this->getReturnUrl();
+        }
+        if ($this->getCancelUrl()) {
+            $data['failure_url'] = $this->getCancelUrl();
+        }
         $customer = [];
         if ($this->getCustomerReference()) {
             $customer['id'] = $this->getCustomerReference();
