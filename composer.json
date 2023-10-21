@@ -1,11 +1,11 @@
 {
-    "name": "beganovich/omnipay-checkout",
+    "name": "jjclane/omnipay-checkout",
     "description": "Checkout driver for the Omnipay PHP payment processing library",
     "keywords": [
-        "beganovich",
+        "jjclane",
         "omnipay-checkout"
     ],
-    "homepage": "https://github.com/beganovich/omnipay-checkout",
+    "homepage": "https://github.com/JJCLane/omnipay-checkout",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -13,10 +13,15 @@
             "name": "Benjamin Beganović",
             "email": "ben@invoiceninja.com",
             "role": "Developer"
-        }
+        },
+        {
+            "name": "Jordan Lane",
+            "email": "contact@jordanlane.me",
+            "role": "Developer"
+        },
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.1|^8.1",
         "omnipay/common": "^3"
     },
     "require-dev": {
