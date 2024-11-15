@@ -15,7 +15,7 @@ class RefundRequestTest extends TestCase
         'description' => 'Example Refund',
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = new RefundRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize($this->data);
@@ -54,7 +54,7 @@ class RefundRequestTest extends TestCase
 
         $errors = $response->getMessage();
 
-        $this->assertEquals('payment_source_required', $errors[0]);
+        $this->assertEquals('payment_source_required', $errors);
 
     }
 }

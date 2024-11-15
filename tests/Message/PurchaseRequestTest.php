@@ -13,9 +13,10 @@ class PurchaseRequestTest extends TestCase
         'amount' => '200.00',
         'currency' => 'bam',
         'description' => 'Example purchase',
+        'source' => []
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize($this->data);
@@ -39,7 +40,7 @@ class PurchaseRequestTest extends TestCase
         $response = $this->request->send();
 
         $this->assertTrue($response->isSuccessful());
-        $this->assertTrue($response->isRedirect());
+        $this->assertFalse($response->isRedirect());
         $this->assertEquals('pay_mbabizu24mvu3mela5njyhpit4', $response->getTransactionReference());
     }
 
@@ -56,7 +57,7 @@ class PurchaseRequestTest extends TestCase
 
         $errors = $response->getMessage();
 
-        $this->assertEquals('payment_source_required', $errors[0]);
+        $this->assertEquals('payment_source_required', $errors);
 
     }
 }

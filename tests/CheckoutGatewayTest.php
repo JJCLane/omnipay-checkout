@@ -10,7 +10,7 @@ class CheckoutGatewayTest extends GatewayTestCase
 {
     public $gateway;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

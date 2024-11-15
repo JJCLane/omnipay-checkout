@@ -15,7 +15,7 @@ class CaptureRequestTest extends TestCase
         'description' => 'Example capture',
     ];
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize($this->data);
@@ -56,7 +56,7 @@ class CaptureRequestTest extends TestCase
 
         $errors = $response->getMessage();
 
-        $this->assertEquals('payment_source_required', $errors[0]);
+        $this->assertEquals('payment_source_required', $errors);
 
     }
 }

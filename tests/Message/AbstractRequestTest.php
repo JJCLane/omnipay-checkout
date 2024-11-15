@@ -10,7 +10,7 @@ class AbstractRequestTest extends TestCase
 {
     public $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = Mockery::mock(AbstractRequest::class)->makePartial();
         $this->request->initialize();

@@ -22,10 +22,12 @@
     ],
     "require": {
         "php": "^7.1|^8.1",
-        "omnipay/common": "^3"
+        "omnipay/common": "^3",
+        "symfony/http-client": "^7.1"
     },
     "require-dev": {
-        "omnipay/tests": "^3"
+        "http-interop/http-factory-guzzle": "^1.2",
+        "omnipay/tests": "^4"
     },
     "autoload": {
         "psr-4": {
@@ -42,6 +44,9 @@
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }
