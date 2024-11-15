@@ -6,6 +6,7 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\Checkout\Message\Refund\RefundRequest;
 use Omnipay\Checkout\Message\Purchase\PurchaseRequest;
 use Omnipay\Checkout\Message\CompletePurchase\CompletePurchaseRequest;
+use Omnipay\Checkout\Message\PaymentSession\CreatePaymentSessionRequest;
 
 class Gateway extends AbstractGateway
 {
@@ -61,5 +62,10 @@ class Gateway extends AbstractGateway
     public function refund(array $parameters = [])
     {
         return $this->createRequest(RefundRequest::class, $parameters);
+    }
+
+    public function createPaymentSession(array $parameters = [])
+    {
+        return $this->createRequest(CreatePaymentSessionRequest::class, $parameters);
     }
 }
